@@ -31,7 +31,8 @@ averageStudentMark(12);
 
 function averageStudentMark(id){ 
     let student = findStudent(id);
-    let result = student.reduce((sum, el) => sum + el, 0);
+    let result = student.reduce((acc, {marks}) => acc + marks)/ student.length;
+    console.log(result);
 }
 
 
