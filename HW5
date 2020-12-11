@@ -25,14 +25,12 @@ const students = [
 
 averageStudentMark(13); 
 
-
 averageGroupMark(students);
 
 
 function averageStudentMark(id){ 
     let student = findStudent(id);
-    let marks = student.marks;
-    let avgMark = takeAvgMark(marks);
+    let avgMark = takeAvgMark(student.marks);
     console.log(avgMark);
 }
 
@@ -47,11 +45,8 @@ function findStudent(id){
     return student;
 }
 
-
-function averageGroupMark(arr){
-    const allMarks = [];
-    arr.forEach(el => {
-        allMarks.push(el.marks) 
-    } );console.log(allMarks);
-    return allMarks;
-}
+function averageGroupMark(array) {
+    const marks = array.map(({marks}) => marks).flat();
+    let avgGroupMark = takeAvgMark(marks); console.log(avgGroupMark);
+    return avgGroupMark;
+  }
