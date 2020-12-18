@@ -1,0 +1,33 @@
+calcNumbers();
+
+function calcNumbers(){
+    let number = getNumber();
+    let result = getScore(number);
+    showResult(result);  
+}
+
+function getNumber(){
+let number;
+do {number = Number(prompt('Введите число'))}
+while(isNaN(number));
+return number;
+}
+
+function getScore(number){
+    let score = number;
+    let result = calcScore(number);
+
+        function calcScore(number){
+        let newNumber = number - 1;
+        score += newNumber;
+        if (newNumber > 1 ){
+            return newNumber , calcScore(newNumber);  
+        }
+        return(score);}
+
+    return (result);
+}
+
+function showResult(text){
+    alert (`Результат вычеслений = ${text}`);
+}
