@@ -14,18 +14,8 @@ return number;
 }
 
 function getScore(number){
-    let score = number;
-    let result = calcScore(number);
-
-        function calcScore(number){
-        let newNumber = number - 1;
-        score += newNumber;
-        if (newNumber > 1 ){
-            return newNumber , calcScore(newNumber);  
-        }
-        return(score);}
-
-    return (result);
+    if (number == 1) {return 1};
+    return number + getScore (number - 1);
 }
 
 function showResult(text){
