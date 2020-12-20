@@ -34,4 +34,4 @@ function createCalculator (a) {
     }
 }
 
-let calc10 = createCalculator(10);
+let calc = createCalculator(10);
