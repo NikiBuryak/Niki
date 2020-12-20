@@ -1,0 +1,37 @@
+function createCalculator (a) {
+
+    function sum (b) {
+        if (!isNaN(b)){
+        return a + b};
+        return null;
+    }
+    function mult(b) {
+        if (!isNaN(b)){
+            return a * b};
+            return null;
+    }
+    function sub(b) {
+        if (!isNaN(b)){
+            return a - b};
+            return null;
+    }
+    function div(b) {
+        if (!isNaN(b)){
+            return a / b};
+            return null;
+    }
+    function set(b) {
+        if (!isNaN(b)){
+            return a = b};
+            return null;
+    }
+    return{
+        sum,
+        mult,
+        sub,
+        div,
+        set,
+    }
+}
+
+let calc10 = createCalculator(10);
