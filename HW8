@@ -2,22 +2,22 @@ function createCalculator (a) {
 
     function sum (b) {
         if (!isNaN(b)){
-        return a + b};
+        return a = a + b};
         return null;
     }
     function mult(b) {
         if (!isNaN(b)){
-            return a * b};
+            return a = a * b};
             return null;
     }
     function sub(b) {
         if (!isNaN(b)){
-            return a - b};
+            return a = a - b};
             return null;
     }
     function div(b) {
         if (!isNaN(b)){
-            return a / b};
+            return a = a / b};
             return null;
     }
     function set(b) {
@@ -34,4 +34,4 @@ function createCalculator (a) {
     }
 }
 
-let calc = createCalculator(10);
+const calc = createCalculator(10);
