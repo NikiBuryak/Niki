@@ -1,0 +1,110 @@
+const CONTACT_ROW_SELECTOR = '.new-contact';
+const DELETE_BTN_SELECTOR = 'delete-btn';
+const CONTACTS_LIST_URL = 'https://5dd3d5ba8b5e080014dc4bfa.mockapi.io/contacts/';
+const COUNTRY_CODE_UKR = '+380';
+
+const formInputs = document.querySelectorAll('.cont-input');
+let allContacts = document.querySelector('#all-contacts');
+const contTemplate = document.querySelector('#info-template').innerHTML;
+const contactForm = document.querySelector('#inputs');
+
+
+let contactList = [];
+
+contactForm.addEventListener('submit', onContactFormSubmit)
+document.querySelector('#all-contacts').addEventListener('click', onContactListClick);
+
+function onContactFormSubmit (e){
+    e.preventDefault();
+    const newContact = getContact();
+    if(isValid(newContact)){
+        addNewCont(newContact);
+        clearInp();
+    }else{
+        alert('Enter the form');   
+    }
+    
+}
+function isValid(newContact){
+    return (newContact.name !== '' && newContact.surname !== '' && newContact.code !== '' && newContact.number !== '');    
+}
+function getContact(){
+    const contact = {};
+    formInputs.forEach((inp) => {
+        contact[inp.name] = inp.value;
+    });
+    return contact;
+}
+function addNewCont (newContact){
+    createContact(newContact);
+    
+    fetch(CONTACTS_LIST_URL,{
+        method: 'POST',
+        body: JSON.stringify(newContact),
+        headers: {
+            'Content-Type' : 'application/json', 
+        },
+    })
+    .then((res) =>res.json())
+    .then((data) =>{
+    contactList.push(data);
+    renderContactList(contactList);
+    })
+}
+
+function createContact(contact) {
+    return contTemplate
+    .replace('{{Имя}}', contact.name)
+    .replace('{{Фамилия}}', contact.surname) 
+    .replace('{{Номер}}', contact.phone)
+    .replace('{{id}}', contact.id);
+}
+function clearInp(){
+    contactForm.reset();
+}
+function onContactListClick(e){
+    if(e.target.classList.contains(DELETE_BTN_SELECTOR)){
+        onDeleteBtnClick(e)
+    }
+}
+function onDeleteBtnClick(e){
+    const contact = getContRow(e.target);
+    deleteContact(contact.id);
+}
+function getContRow(e){
+    return e.closest(CONTACT_ROW_SELECTOR);
+}
+function deleteContact(id){
+    contactList =  contactList.filter((contact) => contact.id !== id);
+    fetch(CONTACTS_LIST_URL + id, {
+        method: 'DELETE',
+    })
+    renderContactList(contactList);
+    
+}
+
+
+init();
+
+function init(){
+    fetchContacts();
+}
+
+function fetchContacts(){
+    fetch(CONTACTS_LIST_URL)
+        .then((res) => res.json())
+        .then(setContactList)
+        .then(renderContactList);
+}
+
+function setContactList(list){
+    return (contactList = list);
+}
+function renderContactList(list){
+    const html = list.map(createContact).join(' ');
+    allContacts.innerHTML = html;
+}
+
+
+
+
