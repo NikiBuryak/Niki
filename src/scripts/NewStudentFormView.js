@@ -1,8 +1,9 @@
-class NewStudentFormView{
-    static FORM_BTN_SELECTOR = '#addStudentBtn';
-    static FORM_SELECTOR = '#student-form';
-    static FORM_INPUT_SELECTOR = '#studentNameInput';
-    static TRIGGER_SELECTOR = '#add-form'
+import $ from "jquery";
+import { FORM_SELECTOR, FORM_INPUT_SELECTOR, TRIGGER_SELECTOR} from './configs'
+ 
+
+export default class NewStudentFormView{
+   
     constructor(options){
         this._options = options
     }
@@ -33,18 +34,18 @@ class NewStudentFormView{
     }
     onSubmitBtnClick(e){
         e.preventDefault();
-        const inputValue = $(NewStudentFormView.FORM_INPUT_SELECTOR).val();
+        const inputValue = $(FORM_INPUT_SELECTOR).val();
         if (this.isEmpty(inputValue)){
             console.log('Enter task')
         } else{
             this._options.submit(inputValue);
-            $(NewStudentFormView.FORM_SELECTOR)[0].reset()
+            $(FORM_SELECTOR)[0].reset()
             this.removeForm(e)
         }
     }
     removeForm(e){
         e.target.remove();
-        $(NewStudentFormView.TRIGGER_SELECTOR)[0].style.display = '';
+        $(TRIGGER_SELECTOR)[0].style.display = '';
     }
     isEmpty(value){
         return !value
