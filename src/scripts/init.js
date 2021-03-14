@@ -1,1 +1,0 @@
-$(() => new Controller($('#root')));
