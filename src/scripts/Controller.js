@@ -1,40 +1,42 @@
-const API_URL = 'https://5dd3d5ba8b5e080014dc4bfa.mockapi.io/students/';
-const STUDENT_SELECTOR = '.student';
-class Controller{
+// import ListView from "./MainView";
+import { API_URL } from "./configs";
+import Collection from "./Collection";
+import StudentsView from './StudentsView';
+import FormView from './NewStudentFormView';
+
+export class Controller{
     constructor($conteiner){
-        this.$conteiner = $conteiner;
+        this._$conteiner = $conteiner
         this.studentsCollection = new Collection(API_URL);
         this.studentsCollection.fetch()
         .then(() => this.renderList());
-        
         this.studentsListView = new StudentsView({
             delete: (id) => this.deleteStudent(id),
-            tune: (student) => this.tuneStudent(student),
+            tune: (marks,id) => this.tuneStudent(marks,id),
         });
-        this.newFormStudent = new NewStudentFormView({
+        this.newFormStudent = new FormView({
             submit:(name) => this.onSubmit(name)
         })
-        this.studentsListView.appendTo(this.$conteiner);
+        this.studentsListView.appendTo(  this._$conteiner);
+        
     }
     deleteStudent(id){
         this.studentsCollection.delete(id)
-        .then(() => this.studentsListView.removeElement(id))
+        .then(() =>   this.studentsListView.removeElement(id))
     }
 
-    tuneStudent(student){
-        this.studentsCollection.update(student)
-        .then(() => this.studentsListView.renderStudent(student))
+    tuneStudent(marks,id){
+        this.studentsCollection.update(marks,id)
+        .then(() =>   this.studentsListView.renderStudent(marks))
     }
     onSubmit(name){
         this.studentsCollection.add(name)
-        .then(res => this.studentsListView.appendStudent(res))
+        .then(res =>this.studentsListView.appendStudent(res))
     }
 
     renderList(){
         this.studentsListView.renderStudents(this.studentsCollection.getList());
         this.newStudentForm = this.newFormStudent.addTrigger();
-        this.$conteiner.after(this.newStudentForm[0]);
+        this._$conteiner.after(this.newStudentForm[0]);
     }
-
-
 }
