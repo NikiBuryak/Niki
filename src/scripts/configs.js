@@ -1,0 +1,9 @@
+export const API_URL = 'https://5dd3d5ba8b5e080014dc4bfa.mockapi.io/students/';
+export const FORM_BTN_SELECTOR = '#addStudentBtn';
+export const FORM_SELECTOR = '#student-form';
+export const FORM_INPUT_SELECTOR = '#studentNameInput';
+export const TRIGGER_SELECTOR = '#add-form';
+export const BTN_DELETE_SELECTOR = '.delete';
+export const INPUT_SELECTOR = '.input';
+export const STUDENTS_LIST_SELECTOR = '.students-list';
+export const STUDENT_SELECTOR = '.student';
