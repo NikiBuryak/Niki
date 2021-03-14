@@ -1,4 +1,4 @@
-class Collection{
+export default class Collection{
     constructor(url){
         this._url = url;
         this._list = [];
@@ -28,11 +28,11 @@ class Collection{
         this._list= this._list.filter((item) => item.id !== id);
         return Promise.resolve();
     }
-    update(student){
+    update(marks,id){
         const newStudent ={
-            marks: this.getMarks(student)
+            marks
         }
-        fetch(this._url + '/' + student.dataset.id, {
+        fetch(this._url + '/' + id, {
             method: 'PUT',
             headers:{
                 'Content-Type': 'application/json'
@@ -64,6 +64,5 @@ class Collection{
         student = (Object.values( student.querySelectorAll('input')))
         student.map((el) => marks.push(el.value))
         return marks;
-    
     }
 }
